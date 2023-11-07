@@ -1,20 +1,3 @@
-void T_CheckOzone(void *pvParameters) {
-  (void) pvParameters;
-  while (1) {
-    OzoneState = digitalRead(OzoneSensor);
-    if (OzoneState == HIGH) {
-      //turn off ozone emitter
-      digitalWrite(Fan_Relay, HIGH);
-    } else {
-      //turn on ozone emitter
-      digitalWrite(Fan_Relay, LOW);
-    }
-
-    //Display(OzoneState);
-    vTaskDelay(5000 / portTICK_PERIOD_MS);
-  }
-}
-
 void T_CheckRunningStatus(void *pvParameters) {
   (void) pvParameters;
 
@@ -32,12 +15,27 @@ void T_CheckRunningStatus(void *pvParameters) {
       timer.start();
     }
 
-    if (StartState == LOW && StopState == HIGH){
+    else if (StartState == LOW && StopState == HIGH){
       StopSystem();  
     }
-    functionExecuted = false;
-    
+
     vTaskDelay(100 / portTICK_PERIOD_MS);
+  }
+}
+
+void T_CheckOzone(void *pvParameters) {
+  (void) pvParameters;
+  while (1) {
+    OzoneState = digitalRead(OzoneSensor);
+    if (OzoneState == HIGH) {
+      //turn off ozone emitter
+      digitalWrite(Fan_Relay, HIGH);
+    } else {
+      //turn on ozone emitter
+      digitalWrite(Fan_Relay, LOW);
+    }
+
+    vTaskDelay(5000 / portTICK_PERIOD_MS);
   }
 }
 
@@ -47,10 +45,10 @@ void T_Runtime(void *pvParameters) {
     displayOzoneReading();
     displayTimeElapsed();
 
-    if (timer.read() >= duration && !functionExecuted) {
+    if (timer.read() >= duration) {
       StopSystem();
     }
 
-    vTaskDelay(1000 / portTICK_PERIOD_MS);
+    vTaskDelay(900 / portTICK_PERIOD_MS);
   }
 }
