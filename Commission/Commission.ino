@@ -1,3 +1,5 @@
+using namespace std; 
+
 #include <SPI.h>
 #include <Wire.h>
 #include <Timer.h>
@@ -10,10 +12,7 @@
 #define OzoneSensor 13
 
 Timer timer;
-
-//I2C interface is not multi-thread safe, use mutex
-//https://microcontrollerslab.com/arduino-freertos-mutex-tutorial-priority-inversion-priority-inheritance/
-//LiquidCrystal_I2C lcd(0x27,16,2);
+LiquidCrystal_I2C lcd(0x27,16,2);
 
 int OzoneState;
 int StartState = LOW;    // Variable to store the state of the first button
