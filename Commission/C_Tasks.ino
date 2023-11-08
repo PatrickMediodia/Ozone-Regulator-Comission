@@ -27,15 +27,18 @@ void T_CheckOzone(void *pvParameters) {
   (void) pvParameters;
   while (1) {
     OzoneState = digitalRead(OzoneSensor);
+
     if (OzoneState == HIGH) {
-      //turn off ozone emitter
-      digitalWrite(Fan_Relay, HIGH);
+      //turn off emitter, turn on fan
+      digitalWrite(OzoneEmitter, HIGH);
+      digitalWrite(CarbonFilter, LOW);
     } else {
-      //turn on ozone emitter
-      digitalWrite(Fan_Relay, LOW);
+      //turn on emitter, turn of fan
+      digitalWrite(OzoneEmitter, LOW);
+      digitalWrite(CarbonFilter, HIGH);
     }
 
-    vTaskDelay(5000 / portTICK_PERIOD_MS);
+    vTaskDelay(1000 / portTICK_PERIOD_MS);
   }
 }
 

@@ -8,7 +8,8 @@ using namespace std;
 
 #define BTN_Start 2
 #define BTN_Stop 3
-#define Fan_Relay 4
+#define CarbonFilter 8
+#define OzoneEmitter 9
 #define OzoneSensor 13
 
 Timer timer;

@@ -1,15 +1,22 @@
 void StopSystem() {
-  displayStartMessage();
-
   //if paused is used, and start is ran, it will restart the value of the timer
   timer.pause();
 
-  //Turn off ozone emitter
-  digitalWrite(Fan_Relay, LOW);
-  
   //Stop the timer and the ozone sensor
-  vTaskSuspend(H_CheckOzone);
   vTaskSuspend(H_Runtime);
+
+  //turn off emitter
+  digitalWrite(OzoneEmitter, HIGH);
+
+  //turn on filter until ozone is high
+  while(OzoneState == HIGH) {
+    digitalWrite(CarbonFilter, LOW);   
+  }
+
+  vTaskSuspend(H_CheckOzone);
+  digitalWrite(CarbonFilter, HIGH);
+
+  displayStartMessage();
 }
 
 void displayStartMessage() {

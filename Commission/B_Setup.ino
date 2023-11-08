@@ -1,7 +1,8 @@
 void setup() {
   pinMode(BTN_Start, INPUT);
   pinMode(BTN_Stop, INPUT);
-  pinMode(Fan_Relay, OUTPUT);
+  pinMode(OzoneEmitter, OUTPUT);
+  pinMode(CarbonFilter, OUTPUT);
   pinMode(OzoneSensor, INPUT);
   
   Serial.begin(9600);
@@ -18,6 +19,10 @@ void setup() {
 
   xTaskCreate(T_CheckRunningStatus, "Buttons", 128, NULL, 1, &H_CheckRunningStatus);
   
+  //initiate emitter and fan filter as off
+  digitalWrite(OzoneEmitter, HIGH);
+  digitalWrite(CarbonFilter, HIGH);
+
   displayStartMessage();
 }
 
