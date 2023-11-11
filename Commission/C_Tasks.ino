@@ -19,26 +19,28 @@ void T_CheckRunningStatus(void *pvParameters) {
       StopSystem();  
     }
 
-    vTaskDelay(100 / portTICK_PERIOD_MS);
+    vTaskDelay(150 / portTICK_PERIOD_MS);
   }
 }
 
 void T_CheckOzone(void *pvParameters) {
   (void) pvParameters;
   while (1) {
-    OzoneState = digitalRead(OzoneSensor);
+    //testing of PPM reading
+    ozoneReading = Ozone.readOzoneData(COLLECT_NUMBER) / 1000;
 
-    if (OzoneState == HIGH) {
+    if (ozoneReading >= maximumValue) {
       //turn off emitter, turn on fan
       digitalWrite(OzoneEmitter, HIGH);
       digitalWrite(CarbonFilter, LOW);
-    } else {
+
+    } else if (ozoneReading <= minimumValue){
       //turn on emitter, turn of fan
       digitalWrite(OzoneEmitter, LOW);
       digitalWrite(CarbonFilter, HIGH);
     }
 
-    vTaskDelay(1000 / portTICK_PERIOD_MS);
+    vTaskDelay(5000 / portTICK_PERIOD_MS);
   }
 }
 
@@ -47,7 +49,7 @@ void T_Runtime(void *pvParameters) {
   while (1) {
     displayOzoneReading();
     displayTimeElapsed();
-
+    
     if (timer.read() >= duration) {
       StopSystem();
     }

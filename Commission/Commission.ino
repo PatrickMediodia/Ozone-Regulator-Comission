@@ -24,12 +24,15 @@ Timer timer;
 DFRobot_OzoneSensor Ozone;
 LiquidCrystal_I2C lcd(0x27,16,2);
 
-int OzoneState;
 int StartState = LOW;    // Variable to store the state of the first button
 int StopState = LOW;    // Variable to store the state of the second button
 unsigned long startTime;     // Variable to store the start time
+float ozoneReading = 0.0;   // initial ozone reading
 unsigned long duration = 0.25 * 60 * 1000; // 5 minutes in milliseconds
-bool functionExecuted = false;
+
+float maximumValue = 5.00;
+float minimumValue = 2.00;
+float cleanupValue = 1.00;
 
 void T_Runtime(void *pvParameters);
 void T_CheckRunningStatus(void *pvParameters);
