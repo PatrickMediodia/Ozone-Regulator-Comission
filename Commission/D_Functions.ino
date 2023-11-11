@@ -4,7 +4,7 @@ void StopSystem() {
   digitalWrite(OzoneEmitter, HIGH);
 
   ozoneReading = Ozone.readOzoneData(COLLECT_NUMBER) / 1000;
-  
+
   //turn on filter while ozone is high
   if (ozoneReading >= minimumValue) {
     displayCleaningMessage();

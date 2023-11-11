@@ -3,7 +3,6 @@ void setup() {
   pinMode(BTN_Stop, INPUT);
   pinMode(OzoneEmitter, OUTPUT);
   pinMode(CarbonFilter, OUTPUT);
-  pinMode(OzoneSensor, INPUT);
   
   Serial.begin(9600);
   while (!Serial);
