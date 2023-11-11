@@ -5,13 +5,12 @@ void StopSystem() {
   //turn off emitter
   digitalWrite(OzoneEmitter, HIGH);
 
+  /*
   //turn on filter while ozone is high
   displayCleaningMessage();
-  while(ozoneReading >= cleanupValue) {
-    digitalWrite(CarbonFilter, LOW);  
-    
-  }
-
+  while(ozoneReading >= minimumValue) {}
+  */
+  
   vTaskSuspend(H_CheckOzone);
   digitalWrite(CarbonFilter, HIGH);
 
@@ -35,8 +34,8 @@ void displayOzoneReading() {
   lcd.setCursor(1, 0);
   lcd.print("0zone: ");
 
-  //lcd.setCursor(8, 0);
-  //lcd.print(ozoneReading);
+  lcd.setCursor(8, 0);
+  lcd.print(ozoneReading);
   
   lcd.setCursor(12, 0);
   lcd.print(" ppm");

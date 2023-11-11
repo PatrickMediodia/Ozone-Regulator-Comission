@@ -49,7 +49,11 @@ void T_Runtime(void *pvParameters) {
   while (1) {
     displayOzoneReading();
     displayTimeElapsed();
-    
+
+    Serial.print(timer.read());
+    Serial.print(", ");
+    Serial.println(duration);
+
     if (timer.read() >= duration) {
       StopSystem();
     }

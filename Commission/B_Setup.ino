@@ -25,8 +25,8 @@ void setup() {
 
   xTaskCreate(T_Runtime, "Timer", 128, NULL, 1, &H_Runtime);
   vTaskSuspend(H_Runtime);
-
-  xTaskCreate(T_CheckRunningStatus, "Buttons", 100, NULL, 1, &H_CheckRunningStatus);
+  
+  xTaskCreate(T_CheckRunningStatus, "Buttons", 96, NULL, 1, &H_CheckRunningStatus);
 
   //initiate emitter and fan filter as off
   digitalWrite(OzoneEmitter, HIGH);
