@@ -1,23 +1,28 @@
 void StopSystem() {
-  //if paused is used, and start is ran, it will restart the value of the timer
-  timer.pause();
-
   //turn off emitter
+  vTaskSuspend(H_CheckOzone);
   digitalWrite(OzoneEmitter, HIGH);
 
-  /*
-  //turn on filter while ozone is high
-  displayCleaningMessage();
-  while(ozoneReading >= minimumValue) {}
-  */
+  ozoneReading = Ozone.readOzoneData(COLLECT_NUMBER) / 1000;
   
-  vTaskSuspend(H_CheckOzone);
-  digitalWrite(CarbonFilter, HIGH);
+  //turn on filter while ozone is high
+  if (ozoneReading >= minimumValue) {
+    displayCleaningMessage();
+    Serial.println("Regulating Ozone");
+    digitalWrite(CarbonFilter, LOW);
 
-  displayStartMessage();
+  } else {
+    //if paused is used, and start is ran, it will restart the value of the timer
+    timer.pause();
+    digitalWrite(CarbonFilter, HIGH);
 
-  //Stop the timer task which is running this stop system function
-  vTaskSuspend(H_Runtime);
+    //Stop the timer task which is running this stop system function
+    displayStartMessage();
+    Serial.println("Ozone Regulated");
+
+    stopAndRegulateOzone = false;
+    vTaskSuspend(H_Runtime);
+  }
 }
 
 void displayStartMessage() {
@@ -36,14 +41,13 @@ void displayOzoneReading() {
 
   lcd.setCursor(8, 0);
   lcd.print(ozoneReading);
-  
+
   lcd.setCursor(12, 0);
   lcd.print(" ppm");
 }
 
 void displayCleaningMessage() {
   lcd.clear();
-
   displayOzoneReading();
 
   //display cleaning up

@@ -7,7 +7,7 @@ void T_CheckRunningStatus(void *pvParameters) {
 
     if (StartState == HIGH && StopState == LOW){
       lcd.clear();
-
+      
       vTaskResume(H_CheckOzone);
       vTaskResume(H_Runtime);
 
@@ -16,7 +16,7 @@ void T_CheckRunningStatus(void *pvParameters) {
     }
 
     else if (StartState == LOW && StopState == HIGH){
-      StopSystem();  
+      stopAndRegulateOzone = true;
     }
 
     vTaskDelay(150 / portTICK_PERIOD_MS);
@@ -26,9 +26,10 @@ void T_CheckRunningStatus(void *pvParameters) {
 void T_CheckOzone(void *pvParameters) {
   (void) pvParameters;
   while (1) {
-    //testing of PPM reading
+    //read ozone value
+    //return ppb, converted to ppm as needed
     ozoneReading = Ozone.readOzoneData(COLLECT_NUMBER) / 1000;
-
+    
     if (ozoneReading >= maximumValue) {
       //turn off emitter, turn on fan
       digitalWrite(OzoneEmitter, HIGH);
@@ -40,22 +41,18 @@ void T_CheckOzone(void *pvParameters) {
       digitalWrite(CarbonFilter, HIGH);
     }
 
-    vTaskDelay(5000 / portTICK_PERIOD_MS);
+    vTaskDelay(3000 / portTICK_PERIOD_MS);
   }
 }
 
 void T_Runtime(void *pvParameters) {
   (void) pvParameters;
   while (1) {
-    displayOzoneReading();
-    displayTimeElapsed();
-
-    Serial.print(timer.read());
-    Serial.print(", ");
-    Serial.println(duration);
-
-    if (timer.read() >= duration) {
+    if (timer.read() >= duration || stopAndRegulateOzone == true) {
       StopSystem();
+    } else {
+      displayOzoneReading();
+      displayTimeElapsed();
     }
 
     vTaskDelay(900 / portTICK_PERIOD_MS);
