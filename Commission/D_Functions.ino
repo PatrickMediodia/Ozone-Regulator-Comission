@@ -29,9 +29,31 @@ void displayStartMessage() {
 }
 
 void displayOzoneReading() {
+  //testing of PPM reading
+  float ozoneConcentration = Ozone.readOzoneData(COLLECT_NUMBER) / 1000;
+  Serial.print("Ozone concentration is ");
+  Serial.print(ozoneConcentration);
+  Serial.println(" PPM");
+
   //display ozone value
-  lcd.setCursor(2, 0);
-  lcd.print("0zone: 5 ppm");
+  lcd.setCursor(1, 0);
+  lcd.print("0zone: ");
+
+  lcd.setCursor(8, 0);
+  lcd.print(ozoneConcentration);
+  
+  lcd.setCursor(12, 0);
+  lcd.print(" ppm");
+}
+
+void displayCleaningMessage() {
+  lcd.clear();
+
+  displayOzoneReading();
+
+  //display cleaning up
+  lcd.setCursor(0, 1);
+  lcd.print("Regulating Ozone");
 }
 
 void displayTimeElapsed() {
