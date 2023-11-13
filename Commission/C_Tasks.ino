@@ -27,21 +27,30 @@ void T_CheckOzone(void *pvParameters) {
   (void) pvParameters;
   while (1) {
     //read ozone value
-    //return ppb, converted to ppm as needed
+    //returns ppb, converted to ppm as needed
     ozoneReading = Ozone.readOzoneData(COLLECT_NUMBER) / 1000.0;
-    
-    if (ozoneReading >= maximumValue) {
-      //turn off emitter, turn on fan
-      digitalWrite(OzoneEmitter, HIGH);
-      digitalWrite(CarbonFilter, LOW);
 
-    } else if (ozoneReading < maximumValue){
-      //turn on emitter, turn off fan
-      digitalWrite(OzoneEmitter, LOW);
-      digitalWrite(CarbonFilter, HIGH);
+    if (maxSafeOzoneReached) {
+        // if now safe, start emitter on next run of task
+        if (ozoneReading <= 3.5) {
+          maxSafeOzoneReached = false;
+        } else {
+          //turn off emitter, turn on fan
+          digitalWrite(OzoneEmitter, HIGH);
+          digitalWrite(CarbonFilter, LOW);
+        }
+    } else {
+      // if unsafe, turn off emitter on next run of task
+      if (ozoneReading >= maximumValue) {
+        maxSafeOzoneReached = true;
+      } else if (ozoneReading < maximumValue){
+        //turn on emitter, turn off fan
+        digitalWrite(OzoneEmitter, LOW);
+        digitalWrite(CarbonFilter, HIGH);
+      }
     }
 
-    vTaskDelay(3000 / portTICK_PERIOD_MS);
+    vTaskDelay(2000 / portTICK_PERIOD_MS);
   }
 }
 

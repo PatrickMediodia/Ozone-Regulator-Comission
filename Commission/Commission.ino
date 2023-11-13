@@ -10,8 +10,8 @@ using namespace std;
 //Pin outs
 #define BTN_Start 2
 #define BTN_Stop 3
-#define CarbonFilter 11
-#define OzoneEmitter 10
+#define CarbonFilter 10
+#define OzoneEmitter 11
 
 //Ozone Sensor Values
 #define COLLECT_NUMBER   20              // collect number, the collection range is 1-100
@@ -30,6 +30,7 @@ unsigned long duration = 5UL * 60UL * 1000UL; // 5 minutes in milliseconds
 //unsigned long duration = 0.25 * 60 * 1000; // Use if under 1 minute
 
 bool stopAndRegulateOzone = false;
+bool maxSafeOzoneReached = false;
 
 float maximumValue = 5.00;
 float minimumValue = 2.00;

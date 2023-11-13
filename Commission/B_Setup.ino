@@ -30,7 +30,7 @@ void setup() {
   //initiate emitter and fan filter as off
   digitalWrite(OzoneEmitter, HIGH);
   digitalWrite(CarbonFilter, HIGH);
-
+  
   displayStartMessage();
 }
 
