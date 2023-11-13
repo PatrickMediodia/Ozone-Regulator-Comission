@@ -3,7 +3,7 @@ void setup() {
   pinMode(BTN_Stop, INPUT);
   pinMode(OzoneEmitter, OUTPUT);
   pinMode(CarbonFilter, OUTPUT);
-  
+
   Serial.begin(9600);
   while (!Serial);
 
@@ -13,7 +13,7 @@ void setup() {
     delay(500);
   }
   Ozone.setModes(MEASURE_MODE_PASSIVE);
-
+  
   //Initialize LCD I2C Interface
   lcd.init();
   lcd.backlight();

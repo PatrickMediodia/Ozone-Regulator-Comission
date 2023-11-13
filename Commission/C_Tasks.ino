@@ -28,8 +28,8 @@ void T_CheckOzone(void *pvParameters) {
   while (1) {
     //read ozone value
     //return ppb, converted to ppm as needed
-    ozoneReading = Ozone.readOzoneData(COLLECT_NUMBER) / 1000;
-
+    ozoneReading = Ozone.readOzoneData(COLLECT_NUMBER) / 1000.0;
+    
     if (ozoneReading >= maximumValue) {
       //turn off emitter, turn on fan
       digitalWrite(OzoneEmitter, HIGH);

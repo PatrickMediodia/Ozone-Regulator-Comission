@@ -3,8 +3,8 @@ void StopSystem() {
   vTaskSuspend(H_CheckOzone);
   digitalWrite(OzoneEmitter, HIGH);
 
-  ozoneReading = Ozone.readOzoneData(COLLECT_NUMBER) / 1000;
-
+  ozoneReading = Ozone.readOzoneData(COLLECT_NUMBER) / 1000.0;
+  
   //turn on filter while ozone is high
   if (ozoneReading >= minimumValue) {
     displayCleaningMessage();

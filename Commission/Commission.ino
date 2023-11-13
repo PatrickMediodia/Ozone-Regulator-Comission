@@ -10,8 +10,8 @@ using namespace std;
 //Pin outs
 #define BTN_Start 2
 #define BTN_Stop 3
-#define CarbonFilter 8
-#define OzoneEmitter 9
+#define CarbonFilter 11
+#define OzoneEmitter 10
 
 //Ozone Sensor Values
 #define COLLECT_NUMBER   20              // collect number, the collection range is 1-100
