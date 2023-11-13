@@ -35,8 +35,8 @@ void T_CheckOzone(void *pvParameters) {
       digitalWrite(OzoneEmitter, HIGH);
       digitalWrite(CarbonFilter, LOW);
 
-    } else if (ozoneReading <= minimumValue){
-      //turn on emitter, turn of fan
+    } else if (ozoneReading < maximumValue){
+      //turn on emitter, turn off fan
       digitalWrite(OzoneEmitter, LOW);
       digitalWrite(CarbonFilter, HIGH);
     }
