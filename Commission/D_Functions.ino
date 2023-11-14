@@ -6,7 +6,7 @@ void StopSystem() {
   ozoneReading = Ozone.readOzoneData(COLLECT_NUMBER) / 1000.0;
   
   //turn on filter while ozone is high
-  if (ozoneReading >= minimumValue) {
+  if (ozoneReading > safeValue) {
     displayCleaningMessage();
     Serial.println("Regulating Ozone");
     digitalWrite(CarbonFilter, LOW);

@@ -32,7 +32,7 @@ void T_CheckOzone(void *pvParameters) {
 
     if (maxSafeOzoneReached) {
         // if now safe, start emitter on next run of task
-        if (ozoneReading <= 3.5) {
+        if (ozoneReading <= minimumValue) {
           maxSafeOzoneReached = false;
         } else {
           //turn off emitter, turn on fan

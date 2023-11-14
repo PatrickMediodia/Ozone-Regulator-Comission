@@ -32,8 +32,9 @@ unsigned long duration = 5UL * 60UL * 1000UL; // 5 minutes in milliseconds
 bool stopAndRegulateOzone = false;
 bool maxSafeOzoneReached = false;
 
-float maximumValue = 5.00;
-float minimumValue = 2.00;
+float maximumValue = 6.00;
+float minimumValue = 4.00;
+float safeValue = 2.00;
 
 void T_Runtime(void *pvParameters);
 void T_CheckRunningStatus(void *pvParameters);
