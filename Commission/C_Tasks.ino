@@ -4,7 +4,7 @@ void T_CheckRunningStatus(void *pvParameters) {
   while (1) {
     StartState = digitalRead(BTN_Start);
     StopState = digitalRead(BTN_Stop);
-    
+
     if (StartState == HIGH && StopState == LOW){
       lcd.clear();
 
@@ -18,9 +18,7 @@ void T_CheckRunningStatus(void *pvParameters) {
     else if (StartState == LOW && StopState == HIGH){
       stopAndRegulateOzone = true;
     }
-
-    Serial.println(duration);
-
+    
     vTaskDelay(150 / portTICK_PERIOD_MS);
   }
 }
