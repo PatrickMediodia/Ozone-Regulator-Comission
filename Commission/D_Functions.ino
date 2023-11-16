@@ -8,17 +8,17 @@ void StopSystem() {
   //turn on filter while ozone is high
   if (ozoneReading > safeValue) {
     displayCleaningMessage();
-    Serial.println("Regulating Ozone");
+    //Serial.println("Regulating Ozone");
     digitalWrite(CarbonFilter, LOW);
 
   } else {
     //if paused is used, and start is ran, it will restart the value of the timer
     timer.pause();
     digitalWrite(CarbonFilter, HIGH);
-
+    
     //Stop the timer task which is running this stop system function
     displayStartMessage();
-    Serial.println("Ozone Regulated");
+    //Serial.println("Ozone Regulated");
 
     stopAndRegulateOzone = false;
     vTaskSuspend(H_Runtime);

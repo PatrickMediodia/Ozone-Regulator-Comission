@@ -7,7 +7,7 @@ void T_CheckRunningStatus(void *pvParameters) {
 
     if (StartState == HIGH && StopState == LOW){
       lcd.clear();
-      
+
       vTaskResume(H_CheckOzone);
       vTaskResume(H_Runtime);
 
@@ -63,7 +63,7 @@ void T_Runtime(void *pvParameters) {
       displayOzoneReading();
       displayTimeElapsed();
     }
-
+    
     vTaskDelay(900 / portTICK_PERIOD_MS);
   }
 }
