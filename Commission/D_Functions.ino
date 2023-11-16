@@ -56,13 +56,13 @@ void displayCleaningMessage() {
 }
 
 void displayTimeElapsed() {
-  uint32_t timeElapsed = (timer.read() / 1000.0) / 60.0;
+  float timeElapsed = (timer.read() / 1000.0) / 60.0;
   int timeElapsedWhole = static_cast<int>(timeElapsed);
 
   char secondsCount[2];
-  uint8_t seconds = (timeElapsed - timeElapsedWhole) * 60;
+  int8_t seconds = (timeElapsed - timeElapsedWhole) * 60;
   dtostrf(seconds, 2, 0, secondsCount);
-  if (seconds <= 9.9999) {
+  if (seconds <= 9) {
     secondsCount[0] = '0';  
   }
   

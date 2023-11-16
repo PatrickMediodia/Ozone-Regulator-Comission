@@ -21,7 +21,6 @@ LiquidCrystal_I2C lcd(0x27,16,2);
 
 int StartState = LOW;    // Variable to store the state of the first button
 int StopState = LOW;    // Variable to store the state of the second button
-int16_t ozoneReading = 0.0;   // initial ozone reading
 
 uint32_t duration = 5UL * 60UL * 1000UL; // 5 minutes in milliseconds
 //uint32_t duration = 0.25 * 60 * 1000; // Use if under 1 minute
@@ -29,9 +28,10 @@ uint32_t duration = 5UL * 60UL * 1000UL; // 5 minutes in milliseconds
 bool stopAndRegulateOzone = false;
 bool maxSafeOzoneReached = false;
 
-int16_t maximumValue = 6.00;
-int16_t minimumValue = 4.00;
-int16_t safeValue = 2.00;
+float ozoneReading = 0.0;   // initial ozone reading
+float maximumValue = 6.00;
+float minimumValue = 4.00;
+float safeValue = 2.00;
 
 void T_Runtime(void *pvParameters);
 void T_CheckRunningStatus(void *pvParameters);
