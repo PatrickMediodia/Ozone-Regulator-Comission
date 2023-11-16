@@ -29,6 +29,7 @@ bool stopAndRegulateOzone = false;
 bool maxSafeOzoneReached = false;
 
 float ozoneReading = 0.0;   // initial ozone reading
+
 float maximumValue = 6.00;
 float minimumValue = 4.00;
 float safeValue = 2.00;

@@ -18,7 +18,7 @@ void T_CheckRunningStatus(void *pvParameters) {
     else if (StartState == LOW && StopState == HIGH){
       stopAndRegulateOzone = true;
     }
-    
+
     vTaskDelay(150 / portTICK_PERIOD_MS);
   }
 }
@@ -43,7 +43,7 @@ void T_CheckOzone(void *pvParameters) {
       // if unsafe, turn off emitter on next run of task
       if (ozoneReading >= maximumValue) {
         maxSafeOzoneReached = true;
-      } else if (ozoneReading < maximumValue){
+      } else {
         //turn on emitter, turn off fan
         digitalWrite(OzoneEmitter, LOW);
         digitalWrite(CarbonFilter, HIGH);
